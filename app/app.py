@@ -1,6 +1,73 @@
 import reflex as rx
 from app.states.dashboard_state import DashboardState, Ticker
+from app.states.auth_state import AuthState
 from app.components.chart import stock_chart
+
+
+def login_dialog() -> rx.Component:
+    return rx.radix.primitives.dialog.root(
+        rx.radix.primitives.dialog.trigger(
+            rx.el.button(
+                "Sign In",
+                class_name="text-sm font-medium text-white bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600",
+            )
+        ),
+        rx.radix.primitives.dialog.portal(
+            rx.radix.primitives.dialog.overlay(
+                class_name="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            ),
+            rx.radix.primitives.dialog.content(
+                rx.radix.primitives.dialog.title(
+                    "Sign In", class_name="text-2xl font-bold text-white mb-4"
+                ),
+                rx.el.form(
+                    rx.el.div(
+                        rx.el.label(
+                            "Username",
+                            class_name="text-sm font-medium text-gray-300 mb-1",
+                        ),
+                        rx.el.input(
+                            name="username",
+                            placeholder="Enter your username",
+                            class_name="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
+                        ),
+                        class_name="mb-4",
+                    ),
+                    rx.el.div(
+                        rx.el.label(
+                            "Password",
+                            class_name="text-sm font-medium text-gray-300 mb-1",
+                        ),
+                        rx.el.input(
+                            name="password",
+                            type="password",
+                            placeholder="Enter your password",
+                            class_name="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
+                        ),
+                        class_name="mb-6",
+                    ),
+                    rx.el.div(
+                        rx.el.button(
+                            "Sign In",
+                            type="submit",
+                            class_name="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition-colors",
+                        )
+                    ),
+                    on_submit=AuthState.login,
+                    reset_on_submit=True,
+                ),
+                rx.radix.primitives.dialog.close(
+                    rx.el.button(
+                        rx.icon("x", class_name="h-4 w-4"),
+                        class_name="absolute top-4 right-4 text-gray-400 hover:text-white",
+                    )
+                ),
+                class_name="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 border border-gray-800 rounded-lg p-8 w-full max-w-md z-50",
+            ),
+        ),
+        open=AuthState.show_login_dialog,
+        on_open_change=AuthState.set_show_login_dialog,
+    )
 
 
 def ticker_item(ticker: Ticker) -> rx.Component:
@@ -78,10 +145,7 @@ def header() -> rx.Component:
             ),
             rx.el.div(
                 rx.icon("search", class_name="h-5 w-5 text-gray-400"),
-                rx.el.button(
-                    "Sign In",
-                    class_name="text-sm font-medium text-white bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600",
-                ),
+                login_dialog(),
                 class_name="flex items-center gap-4",
             ),
             class_name="flex items-center justify-between h-16 px-4 md:px-6",
