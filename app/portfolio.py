@@ -23,7 +23,7 @@ def portfolio_summary_card() -> rx.Component:
                 rx.el.h3("Total Gain/Loss", class_name="text-sm font-medium text-gray-400"),
                 rx.el.div(
                     rx.el.span(
-                        f"${PortfolioState.total_gain_loss:,.2f}",
+                        PortfolioState.total_gain_loss_formatted,
                         class_name=rx.cond(
                             PortfolioState.total_gain_loss >= 0,
                             "text-2xl font-bold text-green-500",
@@ -31,7 +31,7 @@ def portfolio_summary_card() -> rx.Component:
                         ),
                     ),
                     rx.el.span(
-                        f" ({PortfolioState.total_gain_loss_percent:+.2f}%)",
+                        f" ({PortfolioState.total_gain_loss_percent_formatted})",
                         class_name=rx.cond(
                             PortfolioState.total_gain_loss >= 0,
                             "text-lg font-semibold text-green-500 ml-2",
@@ -83,7 +83,11 @@ def holding_row(holding: PortfolioHolding) -> rx.Component:
         ),
         rx.el.div(
             rx.el.div(
-                f"${holding['gain_loss']:,.2f}",
+                rx.cond(
+                    holding["gain_loss"] >= 0,
+                    f"+${holding['gain_loss']:,.2f}",
+                    f"-${holding['gain_loss'] * -1:,.2f}",
+                ),
                 class_name=rx.cond(
                     holding["gain_loss"] >= 0,
                     "text-green-500 font-semibold",
@@ -91,7 +95,11 @@ def holding_row(holding: PortfolioHolding) -> rx.Component:
                 ),
             ),
             rx.el.div(
-                f"({holding['gain_loss_percent']:+.2f}%)",
+                rx.cond(
+                    holding["gain_loss_percent"] >= 0,
+                    f"(+{holding['gain_loss_percent']:.2f}%)",
+                    f"({holding['gain_loss_percent']:.2f}%)",
+                ),
                 class_name=rx.cond(
                     holding["gain_loss"] >= 0,
                     "text-green-500 text-sm",

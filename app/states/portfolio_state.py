@@ -183,6 +183,24 @@ class PortfolioState(rx.State):
         return (self.total_gain_loss / total_invested) * 100
 
     @rx.var
+    def total_gain_loss_formatted(self) -> str:
+        """Get formatted total gain/loss with + or - sign."""
+        value = self.total_gain_loss
+        if value >= 0:
+            return f"+${value:,.2f}"
+        else:
+            return f"-${abs(value):,.2f}"
+
+    @rx.var
+    def total_gain_loss_percent_formatted(self) -> str:
+        """Get formatted total gain/loss percentage with + or - sign."""
+        value = self.total_gain_loss_percent
+        if value >= 0:
+            return f"+{value:.2f}%"
+        else:
+            return f"{value:.2f}%"
+
+    @rx.var
     def sorted_transactions(self) -> list[Transaction]:
         """Get transactions sorted by date (newest first)."""
         return sorted(
