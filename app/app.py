@@ -175,7 +175,17 @@ def header() -> rx.Component:
             ),
             rx.el.nav(
                 rx.el.a(
-                    "Markets", href="#", class_name="text-gray-300 hover:text-white"
+                    "Markets", href="/", class_name="text-gray-300 hover:text-white"
+                ),
+                rx.el.a(
+                    "Portfolio",
+                    href="/portfolio",
+                    class_name="text-gray-300 hover:text-white",
+                ),
+                rx.el.a(
+                    "Analytics",
+                    href="/analytics",
+                    class_name="text-gray-300 hover:text-white",
                 ),
                 rx.el.a(
                     "Technology", href="#", class_name="text-gray-300 hover:text-white"
@@ -186,12 +196,6 @@ def header() -> rx.Component:
                 rx.el.a(
                     "Economics", href="#", class_name="text-gray-300 hover:text-white"
                 ),
-                rx.el.a(
-                    "Analytics",
-                    href="/analytics",
-                    class_name="text-gray-300 hover:text-white",
-                ),
-                rx.el.a("More", href="#", class_name="text-gray-300 hover:text-white"),
                 class_name="hidden md:flex items-center gap-6 text-sm font-medium",
             ),
             rx.el.div(
@@ -383,6 +387,7 @@ def index() -> rx.Component:
 
 
 from app.analytics import analytics_page
+from app.portfolio import portfolio_page
 
 app = rx.App(
     theme=rx.theme(appearance="light"),
@@ -397,3 +402,4 @@ app = rx.App(
 )
 app.add_page(index)
 app.add_page(analytics_page, route="/analytics")
+app.add_page(portfolio_page, route="/portfolio")
