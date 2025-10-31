@@ -39,24 +39,15 @@ def portfolio_performance_chart() -> rx.Component:
                 },
                 label_style={"color": "#9ca3af"},
             ),
-            rx.el.defs(
-                rx.el.linearGradient(
-                    rx.el.stop(
-                        offset="5%",
-                        stop_color="#3b82f6",
-                        stop_opacity=0.8,
-                    ),
-                    rx.el.stop(
-                        offset="95%",
-                        stop_color="#3b82f6",
-                        stop_opacity=0.1,
-                    ),
-                    id="colorValue",
-                    x1="0",
-                    y1="0",
-                    x2="0",
-                    y2="1",
-                ),
+            rx.html(
+                """
+                <defs>
+                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity="0.8"/>
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity="0.1"/>
+                    </linearGradient>
+                </defs>
+                """
             ),
             data=PortfolioState.performance_data,
             width="100%",
