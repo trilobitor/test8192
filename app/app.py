@@ -172,7 +172,7 @@ def header() -> rx.Component:
             rx.el.div(
                 rx.icon("bar-chart-big", class_name="h-6 w-6 text-white"),
                 rx.el.h1(
-                    "Bloomberg",
+                    "AiDeation",
                     class_name="text-2xl font-bold text-white tracking-tighter",
                 ),
                 rx.el.div(
