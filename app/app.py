@@ -86,41 +86,26 @@ def register_dialog() -> rx.Component:
                 rx.radix.primitives.dialog.title(
                     "Create an Account", class_name="text-2xl font-bold text-white mb-4"
                 ),
-                rx.el.form(
-                    rx.el.div(
-                        rx.el.label(
-                            "Username",
-                            class_name="text-sm font-medium text-gray-300 mb-1",
-                        ),
-                        rx.el.input(
-                            name="username",
-                            placeholder="Choose a username",
-                            class_name="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
-                        ),
-                        class_name="mb-4",
+                rx.el.div(
+                    rx.el.button(
+                        rx.icon("github", class_name="h-4 w-4 mr-2"),
+                        "Sign up with GitHub",
+                        on_click=lambda: AuthState.register("github"),
+                        class_name="w-full flex items-center justify-center bg-gray-800 text-white font-semibold py-2 rounded-md hover:bg-gray-700 transition-colors mb-2",
                     ),
-                    rx.el.div(
-                        rx.el.label(
-                            "Password",
-                            class_name="text-sm font-medium text-gray-300 mb-1",
-                        ),
-                        rx.el.input(
-                            name="password",
-                            type="password",
-                            placeholder="Choose a password",
-                            class_name="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
-                        ),
-                        class_name="mb-6",
+                    rx.el.button(
+                        rx.icon("figma", class_name="h-4 w-4 mr-2"),
+                        "Sign up with Google",
+                        on_click=lambda: AuthState.register("google"),
+                        class_name="w-full flex items-center justify-center bg-red-600 text-white font-semibold py-2 rounded-md hover:bg-red-700 transition-colors mb-2",
                     ),
-                    rx.el.div(
-                        rx.el.button(
-                            "Create Account",
-                            type="submit",
-                            class_name="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition-colors",
-                        )
+                    rx.el.button(
+                        rx.icon("apple", class_name="h-4 w-4 mr-2"),
+                        "Sign up with Apple",
+                        on_click=lambda: AuthState.register("apple"),
+                        class_name="w-full flex items-center justify-center bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition-colors",
                     ),
-                    on_submit=AuthState.register,
-                    reset_on_submit=True,
+                    class_name="flex flex-col",
                 ),
                 rx.radix.primitives.dialog.close(
                     rx.el.button(

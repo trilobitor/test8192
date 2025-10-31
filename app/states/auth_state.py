@@ -27,10 +27,10 @@ class AuthState(rx.State):
         self.show_login_dialog = False
 
     @rx.event
-    def register(self, form_data: dict):
-        """Register the user."""
+    def register(self, provider: str):
+        """Register the user via a third party provider."""
         self.is_logged_in = True
-        self.username = form_data["username"]
+        self.username = f"User_{provider}"
         self.show_register_dialog = False
 
     @rx.event
