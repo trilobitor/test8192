@@ -70,6 +70,57 @@ def login_dialog() -> rx.Component:
     )
 
 
+def register_dialog() -> rx.Component:
+    return rx.radix.primitives.dialog.root(
+        rx.radix.primitives.dialog.trigger(
+            rx.el.button(
+                "Sign Up",
+                class_name="text-sm font-medium text-white bg-blue-600 px-3 py-1.5 rounded-md hover:bg-blue-700",
+            )
+        ),
+        rx.radix.primitives.dialog.portal(
+            rx.radix.primitives.dialog.overlay(
+                class_name="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            ),
+            rx.radix.primitives.dialog.content(
+                rx.radix.primitives.dialog.title(
+                    "Create an Account", class_name="text-2xl font-bold text-white mb-4"
+                ),
+                rx.el.div(
+                    rx.el.button(
+                        rx.icon("github", class_name="h-4 w-4 mr-2"),
+                        "Sign up with GitHub",
+                        on_click=lambda: AuthState.register("github"),
+                        class_name="w-full flex items-center justify-center bg-gray-800 text-white font-semibold py-2 rounded-md hover:bg-gray-700 transition-colors mb-2",
+                    ),
+                    rx.el.button(
+                        rx.icon("figma", class_name="h-4 w-4 mr-2"),
+                        "Sign up with Google",
+                        on_click=lambda: AuthState.register("google"),
+                        class_name="w-full flex items-center justify-center bg-red-600 text-white font-semibold py-2 rounded-md hover:bg-red-700 transition-colors mb-2",
+                    ),
+                    rx.el.button(
+                        rx.icon("apple", class_name="h-4 w-4 mr-2"),
+                        "Sign up with Apple",
+                        on_click=lambda: AuthState.register("apple"),
+                        class_name="w-full flex items-center justify-center bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition-colors",
+                    ),
+                    class_name="flex flex-col",
+                ),
+                rx.radix.primitives.dialog.close(
+                    rx.el.button(
+                        rx.icon("x", class_name="h-4 w-4"),
+                        class_name="absolute top-4 right-4 text-gray-400 hover:text-white",
+                    )
+                ),
+                class_name="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 border border-gray-800 rounded-lg p-8 w-full max-w-md z-50",
+            ),
+        ),
+        open=AuthState.show_register_dialog,
+        on_open_change=AuthState.set_show_register_dialog,
+    )
+
+
 def ticker_item(ticker: Ticker) -> rx.Component:
     return rx.el.div(
         rx.el.div(
@@ -106,7 +157,7 @@ def header() -> rx.Component:
             rx.el.div(
                 rx.icon("bar-chart-big", class_name="h-6 w-6 text-white"),
                 rx.el.h1(
-                    "Bloomberg",
+                    "AiDeation",
                     class_name="text-2xl font-bold text-white tracking-tighter",
                 ),
                 rx.el.div(
@@ -146,6 +197,7 @@ def header() -> rx.Component:
             rx.el.div(
                 rx.icon("search", class_name="h-5 w-5 text-gray-400"),
                 login_dialog(),
+                register_dialog(),
                 class_name="flex items-center gap-4",
             ),
             class_name="flex items-center justify-between h-16 px-4 md:px-6",
