@@ -13,7 +13,7 @@ def portfolio_performance_chart() -> rx.Component:
             rx.recharts.area(
                 data_key="total_value",
                 stroke="#3b82f6",
-                fill="url(#colorValue)",
+                fill="#3b82f680",
                 stroke_width=2,
             ),
             rx.recharts.x_axis(
@@ -38,16 +38,6 @@ def portfolio_performance_chart() -> rx.Component:
                     "color": "#fff",
                 },
                 label_style={"color": "#9ca3af"},
-            ),
-            rx.html(
-                """
-                <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity="0.8"/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity="0.1"/>
-                    </linearGradient>
-                </defs>
-                """
             ),
             data=PortfolioState.performance_data,
             width="100%",
